@@ -1,0 +1,32 @@
+.search-bar{
+  background-color:  var(--dark-mode-very-dark-blue);
+  border-style: none;
+}
+
+/* enable absolute positioning */
+.inner-addon {
+    position: relative;
+    
+  }
+  
+  /* style icon */
+  .inner-addon i {
+    position: absolute;
+    padding: 10px;
+    color: var(--white);
+    margin-top: 5px;
+    /* pointer-events: none; */
+  }
+  
+  .inner-addon input {
+    padding: 10px 0 10px 50px;
+    /* padding-left: 50px; */
+    width: 150%;
+    border-style: none;
+    background-color: var(--dark-mode-dark-blue);
+    color: var(--white);
+  }
+  
+  .dropdown{
+    background-color: var(--dark-mode-dark-blue);
+  }

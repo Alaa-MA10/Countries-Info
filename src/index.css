@@ -1,7 +1,16 @@
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
 
+:root {
+  --dark-mode-dark-blue: hsl(209, 23%, 22%);
+  --dark-mode-very-dark-blue: hsl(207, 26%, 17%);
+  --light-mode-very-dark-blue: hsl(200, 15%, 8%);
+  --light-mode-dark-gray: hsl(0, 0%, 52%);
+  --light-mode-very-light-gray: hsl(0, 0%, 98%);
+  --white: hsl(0, 0%, 100%);
 
+  --color-red: rgb(160, 35, 35);
+}
 
 *{
   margin: 0;
@@ -9,3 +18,11 @@
   box-sizing: border-box;
 }
 
+body{
+  background-color: var(--dark-mode-very-dark-blue);
+  font-size: 14px;
+}
+
+img{
+  max-width: 100%;
+}
