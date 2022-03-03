@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "./countries.css";
+import { ICountry } from './../../interfaces/CountryData';
+import Country from './../country/country';
 
 const api_url = "https://restcountries.com/v2/all";
 
@@ -10,13 +12,11 @@ const Countries = () => {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
-
     const fetchCountries = async () => {
-        await axios.get(api_url)
-        .then( (res)=>{
-            console.log(res.data)
-            setCountries(res.data)
-        })
+      await axios.get(api_url).then((res) => {
+        console.log(res.data);
+        setCountries(res.data);
+      });
     };
 
     fetchCountries();
@@ -24,8 +24,6 @@ const Countries = () => {
 
   return (
     <>
-      {console.log(countries)}
-
       <section className="countries">
       {/* <div className="container-fluid"> */}
         {/* <div className="container row"> */}
@@ -34,8 +32,8 @@ const Countries = () => {
               country;
             return (
               <div className="card " key={numericCode}>
-                <a
-                  href={`/countries/${name}`}
+                <Link
+                  to={`/countries/${name}`}
                   key={numericCode}
                   className="card-link"
                 >
@@ -51,7 +49,7 @@ const Countries = () => {
                       Capital: <span>{capital}</span>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             );
           })}

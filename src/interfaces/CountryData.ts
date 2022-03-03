@@ -1,6 +1,6 @@
 export interface ICountry {
     name: Name;
-    tld: string[];
+    topLevelDomain: string[];
     cca2: string;
     ccn3: string;
     cca3: string;
@@ -39,20 +39,20 @@ export interface ICountry {
   export interface Name {
     common: string;
     official: string;
-    nativeName: NativeName;
+    nativeName: string;//NativeName;
   }
   
-  export interface NativeName {
-    [key: string]: NativeNames;
-  }
+//   export interface NativeName {
+//     [key: string]: NativeNames;
+//   }
   
-  export interface NativeNames {
-    official: string;
-    common: string;
-  }
+//   export interface NativeNames {
+//     official: string;
+//     common: string;
+//   }
 
   export interface Currencies {
-    [key: string]: Currency;
+    [code: string]: Currency;
   }
   
   export interface Currency {
@@ -66,32 +66,33 @@ export interface ICountry {
   }
 
   export interface Languages {
-    [key: string]: string;
+    name: string;
+    // [key: string]: string;
   }
   
   export interface Translations {
-    ara: NativeNames;
-    ces: NativeNames;
-    cym: NativeNames;
-    deu: NativeNames;
-    est: NativeNames;
-    fin: NativeNames;
-    fra: NativeNames;
-    hrv: NativeNames;
-    hun: NativeNames;
-    ita: NativeNames;
-    jpn: NativeNames;
-    kor: NativeNames;
-    nld: NativeNames;
-    per: NativeNames;
-    pol: NativeNames;
-    por: NativeNames;
-    rus: NativeNames;
-    slk: NativeNames;
-    spa: NativeNames;
-    swe: NativeNames;
-    urd: NativeNames;
-    zho: NativeNames;
+    ara: string;
+    ces: string;
+    cym: string;
+    deu: string;
+    est: string;
+    fin: string;
+    fra: string;
+    hrv: string;
+    hun: string;
+    ita: string;
+    jpn: string;
+    kor: string;
+    nld: string;
+    per: string;
+    pol: string;
+    por: string;
+    rus: string;
+    slk: string;
+    spa: string;
+    swe: string;
+    urd: string;
+    zho: string;
   }
 
   export interface PostalCode {
