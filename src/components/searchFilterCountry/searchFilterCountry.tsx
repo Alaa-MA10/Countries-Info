@@ -2,6 +2,22 @@ import React from "react";
 import "./searchFilterCountry.css";
 
 const SearchFilterCountry = () => {
+
+  // Search countries
+
+
+//   const filteredData = data.filter((el) => {
+//     //if no input the return the original
+//     if (props.input === '') {
+//         return el;
+//     }
+//     //return the item which contains the user input
+//     else {
+//         return el.text.toLowerCase().includes(props.input)
+//     }
+// })
+
+
   return (
     <nav className="navbar navbar-light justify-content-between search-bar">
       <form className="d-flex" onSubmit={(e) => e.preventDefault()}>
@@ -14,6 +30,7 @@ const SearchFilterCountry = () => {
             type="search"
             placeholder="Search for a country..."
             aria-label="Search"
+            // onChange={(e) => searchCountries(e.target.value)}
           />
         </div>
       </form>

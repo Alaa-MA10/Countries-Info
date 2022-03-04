@@ -6,12 +6,13 @@ import { ICountry } from "./../../interfaces/CountryData";
 import "./country.css";
 
 const Country = () => {
+  const api_path = "https://restcountries.com/v3.1/";
+  
   const [country, setCountry] = useState({} as ICountry);
   // const [borderCountries, setBorderCountries] = useState({});
   const [loading, setLoading] = useState(true);
   const { name } = useParams();
 
-  const api_path = "https://restcountries.com/v3.1/";
 
   useEffect(() => {
     let mounted = true;
@@ -175,6 +176,7 @@ const Country = () => {
                 </div>
               </div>
             </div>
+            {/* End Country Details */}
           </div>
         </div>
       )}

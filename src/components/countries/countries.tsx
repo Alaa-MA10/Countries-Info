@@ -1,29 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 import "./countries.css";
 import { ICountry } from "./../../interfaces/CountryData";
-import Country from "./../country/country";
-
-const api_url = "https://restcountries.com/v3.1/all";
 
 const Countries = () => {
   const [countries, setCountries] = useState({} as ICountry);
 
   useEffect(() => {
-    const fetchCountries = async () => {
-      await axios.get(api_url).then((res) => {
-        // console.log(res.data);
-        setCountries(res.data);
-
-        // save the whole response as a string to localstorage
-        localStorage.setItem('countries', JSON.stringify(res.data))
-      });
-    };
-
-    fetchCountries();
-    
+    const allCountries = JSON.parse(localStorage.getItem("countries") || "{}");
+    setCountries(allCountries);
   }, []);
 
   return (

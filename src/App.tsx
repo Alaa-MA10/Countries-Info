@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { NavBar } from "./components/navbar/navbar";
 import Main from "./components/main/main";
 import Country from "./components/country/country";
-// import { axios } from "axios";
+import axios from "axios";
 
 function App() {
-  // const [countryName, setCountryName] = useState("");
+  const api_url = "https://restcountries.com/v3.1/all";
 
-  // const api_path = "https://restcountries.com/v2/";
+  useEffect(() => {
+    const fetchCountries = async () => {
+      await axios.get(api_url).then((res) => {
+        // save the whole response as a string to localstorage
+        localStorage.setItem("countries", JSON.stringify(res.data));
+      });
+    };
 
-  
-  // const getCountryName = (code: string) => {
-  //   axios.get(api_path + `alpha/${code}`)
-  //   .then((res) => {
-  //     console.log(res.data.name);
-  //     setCountryName(res.data.name);
-  //   });
-  // };
-
-  // useEffect( () => {
-
-  //   getCountryName()
-  // }, []);
+    fetchCountries();
+  }, []);
 
   return (
     <Router>
