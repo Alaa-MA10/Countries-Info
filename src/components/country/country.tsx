@@ -1,65 +1,86 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ICountry } from "./../../interfaces/CountryData";
 
 import "./country.css";
 
 const Country = () => {
   const [country, setCountry] = useState({} as ICountry);
-  const [borderCountry, setBorderCountry] = useState("");
+  // const [borderCountries, setBorderCountries] = useState({});
   const [loading, setLoading] = useState(true);
   const { name } = useParams();
 
-  let navigate = useNavigate()
-  const api_path = "https://restcountries.com/v2/";
+  const api_path = "https://restcountries.com/v3.1/";
 
   useEffect(() => {
     let mounted = true;
 
     const fetchCountryData = async () => {
-      await axios.get(api_path + `name/${name}`).then((res) => {
-        console.log("resdata", res.data[0]);
-        setCountry(res.data[0]);
-        if (mounted) {
-          setLoading(false);
-        }
-      });
+      try {
+        //Fetch all country-data
+        await axios.get(api_path + `name/${name}`).then((res) => {
+          // console.log("effect res_data: ", res.data[0]);
+          setCountry(res.data[0]);
+
+          // setBorderCountries(getBorderCountries(res.data[0].borders));
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      if (mounted) {
+        setLoading(false);
+      }
     };
+
     fetchCountryData();
-    // setLoading(false);
 
     return () => {
       mounted = false;
     };
   }, [name]);
 
-  const getCountryName = async (e:React.MouseEvent|null, code:string)=>{
-    let mounted = true;
+  //get border-country-Name from given border-country-code
+  const getBorderCountries = (countryBorders: string[]) => {
+    // retrieve from localstorage
+    // localStorage.getItem() can return either a string or null. JSON.parse() requires a string
+    const allCountries = JSON.parse(localStorage.getItem("countries") || "{}");
+    // console.log("local:", allCountries);
 
-    await axios.get(api_path + `alpha/${code}`).then( (res)=>{
-      console.log(res.data.name)
-      setBorderCountry(res.data.name)
-      if (mounted) {
-        setLoading(false);
+    let countryBordersName = [];
+
+    // console.log(typeof countryBorders)
+    for (let countryCode of countryBorders) {
+      for (let country of allCountries) {
+        if (countryCode === country.cca3) {
+          countryBordersName.push({
+            countryCode: country.cca3,
+            countryName: country.name.common,
+          });
+        }
       }
-      if(!loading && e) {
-        navigate(`/countries/${res.data.name}`)
-      }else if(!loading && !e){
-        console.log('else')
-        return res.data.name
-      }
-    })
-  }
+    }
+
+    // console.log(
+    //   "typeof countryBordersName return: ",
+    //   typeof countryBordersName,
+    // );
+    return countryBordersName;
+  };
+
+  // if (!loading) {
+  //   // console.log("borderCountries: ", borderCountries)
+  // }
 
   return (
     <>
+      {/* if Loading Done! */}
       {!loading && (
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-2">
               <a href="/" className="btn btn-light">
-                <i className="fa-solid fa-arrow-left"></i> Back Home
+                <i className="fa fa-arrow-left"></i> Back Home
               </a>
             </div>
           </div>
@@ -68,14 +89,20 @@ const Country = () => {
             <div className="col-md-4">
               <div className="card">
                 <div className="card-block">
-                  <img className="card-img" src={country.flag} alt={name} />
+                  <img
+                    className="card-img"
+                    src={country.flags.svg}
+                    alt={country.name.common}
+                    // key={country.ccn3}
+                  />
                 </div>
               </div>
             </div>
 
+            {/* Country Details */}
             <div className="col-md-8 details">
               <div className="row card">
-                <h5 className="card-title">{country.name}</h5>
+                <h5 className="card-title">{country.name.common}</h5>
                 <br />
               </div>
 
@@ -83,11 +110,17 @@ const Country = () => {
                 <div className="col-md-6">
                   <div className="card-block">
                     <div className="card-body">
-                      Native Name: <span>{country.name}</span>
+                      Native Name: &nbsp;
+                      {/* {console.log('native name: ', country.name.nativeName)} */}
+                      {Object.values(country.name.nativeName).map(
+                        (native_n) => (
+                          <span key={native_n.common}>{native_n.common}, </span>
+                        ),
+                      )}
+                      {/* {console.log('native names: ', typeof country.name.nativeName)} */}
                       <br />
                       {/* num.toLocaleString() add commas to numbers */}
-                      {console.log(typeof country.population)}
-                      Population:{" "}
+                      Population:
                       <span>{country.population.toLocaleString()}</span>
                       <br />
                       Region: <span>{country.region}</span>
@@ -101,16 +134,19 @@ const Country = () => {
                 <div className="col-md-6">
                   <div className="card-block">
                     <div className="card-body">
-                      Top Level Domain: <span>{country.topLevelDomain}</span>
+                      Top Level Domain: <span>{country.tld}</span>
                       <br />
-                      {/* {console.log(country.currencies[0].name)} */}
-                      Currencies: <span>{country.currencies[0].name}</span>
+                      Currencies: &nbsp;
+                      {Object.values(country.currencies).map((currency) => {
+                        return (
+                          <span key={currency.name}>{currency.name} , </span>
+                        );
+                      })}
                       <br />
-                      {console.log(typeof country.languages)}
+                      {/* {console.log(" country.languages: ", country.languages)} */}
                       Languages: &nbsp;
-                      {Object.values(country.languages).map((c) => {
-                        // {console.log('c->',c)}
-                        return <span key={c.name}>{c.name}, </span>;
+                      {Object.values(country.languages).map((language) => {
+                        return <span key={language}>{language}, </span>;
                       })}
                     </div>
                   </div>
@@ -120,30 +156,18 @@ const Country = () => {
                 <div className="card-block">
                   Border Countries: &nbsp;
                   {/* {console.log(country.borders)} */}
-                  {country.borders.map((border) => {
+                  {/* {console.log(typeof borderCountries)} */}
+                  {getBorderCountries(country.borders).map((countryBorder) => {
                     return (
                       <>
-                        {/* <Link
-                          // to={`/countries/${borderCountries}`}
-                          to={}
-                          key={border}
+                        <a
+                          href={`/countries/${countryBorder.countryName}`}
                           className="btn btn-light"
-                          title={border}
-                          onClick={()=>getCountryName(border)}
-                        > */}
-                        <button key={border} className="btn btn-light" onClick={(e)=>getCountryName(e, border)}>
-                        {/* <Link
-                          to={`/countries/${borderCountry}`}
-                          // key={border}
-                          className="btn btn-light"
-                          title={border}
-                        >  */}
-                        {/* {getCountryName(null, border)} */}
-                          {border}
-                          {/* </Link> */}
-                          
-                          </button>
-                        {/* </Link> */}
+                          title={countryBorder.countryName}
+                          key={countryBorder.countryCode}
+                        >
+                          <span>{countryBorder.countryName}</span>
+                        </a>
                         &nbsp;
                       </>
                     );

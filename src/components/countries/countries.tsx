@@ -3,58 +3,65 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "./countries.css";
-import { ICountry } from './../../interfaces/CountryData';
-import Country from './../country/country';
+import { ICountry } from "./../../interfaces/CountryData";
+import Country from "./../country/country";
 
-const api_url = "https://restcountries.com/v2/all";
+const api_url = "https://restcountries.com/v3.1/all";
 
 const Countries = () => {
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState({} as ICountry);
 
   useEffect(() => {
     const fetchCountries = async () => {
       await axios.get(api_url).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setCountries(res.data);
+
+        // save the whole response as a string to localstorage
+        localStorage.setItem('countries', JSON.stringify(res.data))
       });
     };
 
     fetchCountries();
+    
   }, []);
 
   return (
     <>
       <section className="countries">
-      {/* <div className="container-fluid"> */}
+        {/* <div className="container-fluid"> */}
         {/* <div className="container row"> */}
-          {countries.map((country) => {
-            const { numericCode, name, flag, population, region, capital } =
-              country;
-            return (
-              <div className="card " key={numericCode}>
-                <Link
-                  to={`/countries/${name}`}
-                  key={numericCode}
-                  className="card-link"
-                >
-                  <img className="card-img-top " src={flag} alt={name} />
-                  <div className="card-body">
-                    <h5 className="card-title">{name}</h5>
+        {Object.values(countries).map((country) => {
+          return (
+            <div className="card " key={country.cca3}>
+              <Link
+                to={`/countries/${country.name.common}`}
+                className="card-link"
+              >
+                <img
+                  className="card-img-top "
+                  src={country.flags.svg}
+                  alt={country.name.common}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{country.name.common}</h5>
+                  <br />
+
+                  <div className="card-text">
+                    Population:{" "}
+                    <span>{country.population.toLocaleString()}</span>
                     <br />
-                    <div className="card-text">
-                      Population: <span>{population}</span>
-                      <br />
-                      Region: <span>{region}</span>
-                      <br />
-                      Capital: <span>{capital}</span>
-                    </div>
+                    Region: <span>{country.region}</span>
+                    <br />
+                    Capital: <span>{country.capital}</span>
                   </div>
-                </Link>
-              </div>
-            );
-          })}
+                </div>
+              </Link>
+            </div>
+          );
+        })}
         {/* </div> */}
-      {/* </div> */}
+        {/* </div> */}
       </section>
     </>
   );
