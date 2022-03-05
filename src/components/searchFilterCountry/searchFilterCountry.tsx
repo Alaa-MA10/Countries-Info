@@ -23,14 +23,13 @@ const SearchFilterCountry: React.FC<Props> = ({
             placeholder="Search for a country..."
             aria-label="Search"
             onChange={searchOnChange}
-            // onChange={(e) => searchCountries(e.target.value)}
           />
         </div>
       </form>
 
 
       <div className="dropdown">
-        <select onChange={regionOnChange}>
+        <select className="btn btn-secondary" onChange={regionOnChange}>
           <option className="dropdown-item" value="">
             Filter by Region
           </option>

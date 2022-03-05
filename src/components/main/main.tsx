@@ -46,6 +46,10 @@ const Main = () => {
             return country.region.startsWith(regionSelect);
           }
         })
+        // sort countries-name ascending
+        .sort((a: any, b: any) =>
+          a.name.common.toLowerCase() > b.name.common.toLowerCase() ? 1 : -1,
+        )
     );
   };
 

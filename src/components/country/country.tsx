@@ -7,12 +7,11 @@ import "./country.css";
 
 const Country = () => {
   const api_path = "https://restcountries.com/v3.1/";
-  
+
   const [country, setCountry] = useState({} as ICountry);
   // const [borderCountries, setBorderCountries] = useState({});
   const [loading, setLoading] = useState(true);
   const { name } = useParams();
-
 
   useEffect(() => {
     let mounted = true;
@@ -77,102 +76,101 @@ const Country = () => {
     <>
       {/* if Loading Done! */}
       {!loading && (
-        <div className="container-fluid">
+        <div className="container-fluid px-4">
           <div className="row">
             <div className="col-md-2">
-              <a href="/" className="btn btn-light">
+              <a href="/" className="btn btn-secondary">
                 <i className="fa fa-arrow-left"></i> Back Home
               </a>
             </div>
           </div>
 
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-xs-12 col-md-5">
               <div className="card">
                 <div className="card-block">
                   <img
                     className="card-img"
                     src={country.flags.svg}
                     alt={country.name.common}
-                    // key={country.ccn3}
                   />
                 </div>
               </div>
             </div>
 
+            {/* gap between flag and details */}
+            <div className="col-md-1"></div>
             {/* Country Details */}
-            <div className="col-md-8 details">
-              <div className="row card">
-                <h5 className="card-title">{country.name.common}</h5>
-                <br />
-              </div>
+            <div className="col-xs-12 col-md-6 details">
+              <div className="row">
+                <div className="card">
+                  <h2 className="card-title">{country.name.common}</h2>
+                  <br />
 
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="card-block">
+                  <div className="row">
+                    <div className="col-xs-12 col-md-6">
+                      <div className="card-body">
+                        Native Name:{" "}
+                        {Object.values(country.name.nativeName).map(
+                          (native_n) => (
+                            <span key={native_n.common}>
+                              {native_n.common},{" "}
+                            </span>
+                          ),
+                        )}
+                        <br />
+                        Population:{" "}
+                        <span>{country.population.toLocaleString()}</span>
+                        <br />
+                        Region: <span>{country.region}</span>
+                        <br />
+                        Sub Region: <span>{country.subregion}</span>
+                        <br />
+                        Capital: <span>{country.capital}</span>
+                      </div>
+                    </div>
+
+                    <div className="col-xs-12 col-md-6">
+                      <div className="card-body">
+                        Top Level Domain: <span>{country.tld}</span>
+                        <br />
+                        Currencies:{" "}
+                        {Object.values(country.currencies).map((currency) => {
+                          return (
+                            <span key={currency.name}>{currency.name} , </span>
+                          );
+                        })}
+                        <br />
+                        {/* {console.log(" country.languages: ", country.languages)} */}
+                        Languages:{" "}
+                        {Object.values(country.languages).map((language) => {
+                          return <span key={language}>{language}, </span>;
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
                     <div className="card-body">
-                      Native Name: &nbsp;
-                      {/* {console.log('native name: ', country.name.nativeName)} */}
-                      {Object.values(country.name.nativeName).map(
-                        (native_n) => (
-                          <span key={native_n.common}>{native_n.common}, </span>
-                        ),
+                      Border Countries: {" "}
+                      {getBorderCountries(country.borders).map(
+                        (countryBorder) => {
+                          return (
+                            <>
+                              <a
+                                href={`/countries/${countryBorder.countryName}`}
+                                className="btn btn-secondary btn-sm"
+                                title={countryBorder.countryName}
+                                key={countryBorder.countryCode}
+                              >
+                                {countryBorder.countryName}
+                              </a>
+                              &nbsp;
+                            </>
+                          );
+                        },
                       )}
-                      {/* {console.log('native names: ', typeof country.name.nativeName)} */}
-                      <br />
-                      {/* num.toLocaleString() add commas to numbers */}
-                      Population:
-                      <span>{country.population.toLocaleString()}</span>
-                      <br />
-                      Region: <span>{country.region}</span>
-                      <br />
-                      Sub Region: <span>{country.subregion}</span>
-                      <br />
-                      Capital: <span>{country.capital}</span>
                     </div>
                   </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="card-block">
-                    <div className="card-body">
-                      Top Level Domain: <span>{country.tld}</span>
-                      <br />
-                      Currencies: &nbsp;
-                      {Object.values(country.currencies).map((currency) => {
-                        return (
-                          <span key={currency.name}>{currency.name} , </span>
-                        );
-                      })}
-                      <br />
-                      {/* {console.log(" country.languages: ", country.languages)} */}
-                      Languages: &nbsp;
-                      {Object.values(country.languages).map((language) => {
-                        return <span key={language}>{language}, </span>;
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="card-block">
-                  Border Countries: &nbsp;
-                  {/* {console.log(country.borders)} */}
-                  {/* {console.log(typeof borderCountries)} */}
-                  {getBorderCountries(country.borders).map((countryBorder) => {
-                    return (
-                      <>
-                        <a
-                          href={`/countries/${countryBorder.countryName}`}
-                          className="btn btn-light"
-                          title={countryBorder.countryName}
-                          key={countryBorder.countryCode}
-                        >
-                          <span>{countryBorder.countryName}</span>
-                        </a>
-                        &nbsp;
-                      </>
-                    );
-                  })}
                 </div>
               </div>
             </div>
