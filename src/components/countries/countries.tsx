@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./countries.css";
-import { ICountry } from "./../../interfaces/CountryData";
+import { CountryProps, ICountry } from "./../../interfaces/CountryData";
 
-const Countries = () => {
-  const [countries, setCountries] = useState({} as ICountry);
+const Countries:React.FC<CountryProps> = ({countries}) => {
+  // const [countries, setCountries] = useState({} as ICountry);
 
-  useEffect(() => {
-    const allCountries = JSON.parse(localStorage.getItem("countries") || "{}");
-    setCountries(allCountries);
-  }, []);
+  // useEffect(() => {
+  //   const allCountries = JSON.parse(localStorage.getItem("countries") || "{}");
+  //   setCountries(allCountries);
+  // }, []);
 
   return (
     <>

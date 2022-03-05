@@ -1,23 +1,15 @@
 import React from "react";
 import "./searchFilterCountry.css";
 
-const SearchFilterCountry = () => {
+type Props = {
+  searchOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  regionOnChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+};
 
-  // Search countries
-
-
-//   const filteredData = data.filter((el) => {
-//     //if no input the return the original
-//     if (props.input === '') {
-//         return el;
-//     }
-//     //return the item which contains the user input
-//     else {
-//         return el.text.toLowerCase().includes(props.input)
-//     }
-// })
-
-
+const SearchFilterCountry: React.FC<Props> = ({
+  searchOnChange,
+  regionOnChange,
+}) => {
   return (
     <nav className="navbar navbar-light justify-content-between search-bar">
       <form className="d-flex" onSubmit={(e) => e.preventDefault()}>
@@ -30,54 +22,37 @@ const SearchFilterCountry = () => {
             type="search"
             placeholder="Search for a country..."
             aria-label="Search"
+            onChange={searchOnChange}
             // onChange={(e) => searchCountries(e.target.value)}
           />
         </div>
       </form>
 
+
       <div className="dropdown">
-        <button
-          className="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          Filter by Region
-        </button>
-        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li>
-            <a className="dropdown-item" href="#">
-              All
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#">
-              Africa
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#">
-              America
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#">
-              Asia
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#">
-              Europe
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#">
-              Oceania
-            </a>
-          </li>
-        </ul>
+        <select onChange={regionOnChange}>
+          <option className="dropdown-item" value="">
+            Filter by Region
+          </option>
+          <option className="dropdown-item" value="">
+            All
+          </option>
+          <option className="dropdown-item" value="Africa">
+            Africa
+          </option>
+          <option className="dropdown-item" value="Asia">
+            Asia
+          </option>
+          <option className="dropdown-item" value="Europe">
+            Europe
+          </option>
+          <option className="dropdown-item" value="Americas">
+            Americas
+          </option>
+          <option className="dropdown-item" value="Oceania">
+            Oceania
+          </option>
+        </select>
       </div>
     </nav>
   );

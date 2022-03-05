@@ -138,3 +138,7 @@ export interface Eng {
   f: string;
   m: string;
 }
+
+export interface CountryProps{
+  countries: ICountry[]
+}
