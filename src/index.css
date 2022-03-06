@@ -1,6 +1,7 @@
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
 
+/* General */
 :root {
   --dark-mode-dark-blue: hsl(209, 23%, 22%);
   --dark-mode-very-dark-blue: hsl(207, 26%, 17%);
@@ -10,19 +11,241 @@
   --white: hsl(0, 0%, 100%);
 
   --color-red: rgb(160, 35, 35);
+
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  width: 100%;
 }
 
-body{
-  background-color: var(--dark-mode-very-dark-blue);
+body {
   font-size: 14px;
 }
 
-img{
+img {
   max-width: 100%;
+}
+
+/*  ------------------------ Theme ------------------------ */
+/* Dark Theme */
+.dark{
+  background-color: var(--dark-mode-very-dark-blue);
+  color: var(--white);
+}
+/* Light Theme */
+.light {
+  background-color: var(--light-mode-very-light-gray);
+  color: var(--light-mode-very-dark-blue);
+}
+
+/* ----------- Main-Bar (with toggle-btn) ----------- */
+.main-bar {
+  /* top | horizontal | bottom */
+  padding: 20px 40px 10px;
+}
+
+.main-bar a,
+.theme-toggle {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 800;
+  color: inherit;
+}
+.main-bar i {
+  color: inherit;
+  display: inline;
+}
+
+/* ----------- Main-Bar (with toggle-btn) Theme */
+.dark .main-bar {
+  background-color: var(--dark-mode-dark-blue);
+}
+
+.light .main-bar {
+  background-color: var(--white);
+}
+/* -------------- Main-Page -------------- */
+.main-page{
+  height: 100vh;
+}
+
+/* -------------- Search-Filter-Bar -------------- */
+.search-bar {
+  margin-top: 40px;
+  /* vertical | horizontal */
+  padding: 5px 40px;
+}
+
+/* ----- Search-Filter-Bar -> input-field ----- */
+/* enable absolute positioning */
+.inner-addon {
+  position: relative;
+}
+
+/* style icon */
+.inner-addon i {
+  position: absolute;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.inner-addon input {
+  padding: 10px 0 10px 50px;
+  width: 150%;
+  border-style: none;
+}
+
+/* --- Search-Filter-Bar -> input-field Theme */
+.dark .inner-addon input {
+  background-color: var(--dark-mode-dark-blue);
+  color: var(--white);
+}
+
+.light .search-bar input {
+  background-color: var(--white);
+  color: var(--light-mode-dark-gray);
+}
+
+/* ----- Search-Filter-Bar -> Region-selector ----- */
+.search-bar .dropdown .btn {
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+}
+
+/* --- Search-Filter-Bar -> Region-selector Theme */
+.dark .search-bar .dropdown .btn {
+  background-color: var(--dark-mode-dark-blue);
+  color: var(--white);
+}
+
+.dark .search-bar .dropdown .btn option {
+  color: var(--white);
+  /* padding: 5px; */
+}
+
+.light .search-bar .dropdown {
+  background-color: var(--white);
+}
+.light .search-bar .dropdown .btn {
+  background-color: var(--white);
+  color: var(--light-mode-dark-gray);
+  border: none;
+}
+
+/* -------------------- Country Card -------------------- */
+.countries {
+  /* vertical | horizontal */
+  margin: auto;
+  padding: 0 1rem;
+  height: 100vh;
+}
+.countries .card {
+  /* top | horizontal | bottom */
+  margin: 3rem 0.3rem 0;
+  
+}
+.countries img {
+  height: 150px;
+  object-fit: cover;
+}
+.countries a {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease-in-out;
+}
+
+.countries a:hover {
+  opacity: 0.6;
+  transform: translateY(-5px);
+}
+
+/* -------------------- Country Card Theme -------- */
+.dark .card {
+  border: none;
+  background-color: var(--dark-mode-dark-blue);
+  color: var(--white);
+  box-shadow: 2px 2px 5px var(--dark-mode-dark-blue);
+}
+
+.light .card {
+  border: none;
+  background-color: var(--white);
+  color: var(--dark-mode-very-dark-blue);
+  box-shadow: 2px 2px 5px var(--light-mode-dark-gray);
+}
+
+/* -------------------- Country Details -------------------- */
+.details{
+  height: 100vh;
+  margin: auto;
+}
+
+.details .btn-back {
+  margin-top: 50px;
+}
+
+.details .card {
+  margin-top: 50px;
+  font-size: 16px;
+}
+
+.details .card-img{
+  height: 50vh;
+  object-fit:cover;
+  box-shadow: 0 0 5px var(--light-mode-dark-gray);
+}
+
+.details .card-title {
+  margin-top: 2rem;
+  margin-left: 1rem;
+}
+
+.details .card-body {
+  font-weight: 600;
+  line-height: 1.8rem;
+}
+
+.details .card-body span {
+  font-weight: 300;
+}
+
+/* Border Countries */
+.details .btn-border{
+  width: fit-content;
+  padding: 3px 10px;
+  margin: 0.2rem 0.2rem;
+  /* margin-top: 1rem;
+  margin-left: 0.1rem; */
+}
+/* -------------------- Country Details Theme ------ */
+/* btn-back */
+.dark .details .btn-back {
+  background-color: var(--dark-mode-dark-blue);
+  color: var(--white);
+}
+.light .details .btn-back {
+  background-color: var(--white);
+  color: var(--light-mode-very-dark-blue);
+  box-shadow: 0 0 3px var(--light-mode-dark-gray);
+}
+
+.dark .details .card {
+  background-color: var(--dark-mode-very-dark-blue);
+}
+/* Border Countries */
+.dark .details .btn-border{
+  display: inline;
+  
+  background-color: var(--dark-mode-dark-blue);
+  color: var(--white);
+}
+
+.light .details .btn-border{
+  display: inline;
+  background-color: var(--white);
+  color: var(--light-mode-very-dark-blue);
+  box-shadow: 0 0 3px var(--light-mode-dark-gray);
 }

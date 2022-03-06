@@ -1,18 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "./countries.css";
 import { CountryProps } from "./../../interfaces/CountryData";
 
 const Countries: React.FC<CountryProps> = ({ countries }) => {
   return (
     <>
-      <div className="container-fluid px-4">
+      <div className="container countries">
         <div className="row">
           {Object.values(countries).map((country) => {
             return (
-              <div className="col-12 col-sm-4 col-md-3 col-xl-2">
-                <div className="card" key={country.cca3}>
+              <div className="col-12 col-sm-6 col-md-3 col-xl-2" key={country.cca3}>
+                <div className="card" >
                   <Link
                     to={`/countries/${country.name.common}`}
                     className="card-link"

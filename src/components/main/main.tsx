@@ -59,13 +59,13 @@ const Main = () => {
   }, []);
 
   return (
-    <>
+    <div className="main-page">
       <SearchFilterCountry
         searchOnChange={searchHandler}
         regionOnChange={regionHandler}
       />
       <Countries countries={filterCountries(countries)} />
-    </>
+    </div>
   );
 };
 
